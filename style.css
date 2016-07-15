@@ -1,0 +1,30 @@
+* {
+  backface-visibility: hidden;
+}
+
+body {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+#puzzle {
+  height: 600px;
+  width: 600px;
+  border: 1px solid teal;
+  margin: auto;
+  margin-top: 20px;
+  position: relative;
+}
+
+.tile {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: green;
+  color: white;
+  z-index: 1;
+  transition: 100ms;
+  transform: translate3d(0,0,0);
+}
