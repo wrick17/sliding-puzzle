@@ -11,24 +11,35 @@
 
   input.on('change', function(e) {
 
+    // get the file
     var file = e.target.files[0];
     var fr = new FileReader();
 
+    // wait for the file to load
     fr.onload = function(e) {
+
+      // create a new image object
       img = new Image();
+
+      // wait for the image to load
       img.onload = function(e) {
 
-        canvas.width = img.width;      // set canvas size big enough for the image
+        // set canvas size big enough for the image
+        canvas.width = img.width;
         canvas.height = img.height;
         ctx = canvas.getContext("2d");
         setTimeout(() => {
 
-          ctx.drawImage(img,0,0);         // draw the image
+          // draw the image
+          ctx.drawImage(img,0,0);
         }, 0)
       };
+
+      // set the source for the image
       img.src = fr.result;
     }
 
+    // read file
     fr.readAsDataURL(file);
   })
 
@@ -58,7 +69,7 @@
     const bodyWidth = body.innerWidth();
 
     // set it to 60% of the browser window size
-    const puzzleDimension = Math.min(bodyHeight, bodyWidth) * 0.6;
+    const puzzleDimension = Math.min(bodyHeight, bodyWidth) * 0.8;
 
     // puzzle object
     const puzzle = $('#puzzle');
@@ -136,13 +147,21 @@
 
     function checkOrder() {
       const tiles = $('.tile');
+
+      // array to store the tiles that are not in right position
       const faultArray = [];
       $.each(tiles, function(idx, el) {
+
+        // check if the tile is in right position
         if ($(el).data('id') != $(el).attr('id').replace('tile', '')) faultArray.push(this);
       });
 
       if (faultArray.length === 0) setTimeout(() => {
+
+        // all tiles are in the right places
         $('#tile' + blankTileId).find('.tile-img').css('visibility', 'visible');
+
+        // celebrate
         alert('hurry you won!')
       }, randomizationTimeout);
     }
@@ -227,6 +246,7 @@
 
     })
 
+    // utility to remove duplicates from the array
     function ArrNoDupe(a) {
       var temp = {};
       for (var i = 0; i < a.length; i++)

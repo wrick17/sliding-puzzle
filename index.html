@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Sliding Puzzle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/style.css">
   </head>
   <body>
@@ -19,9 +20,9 @@
       <input type="file" id="file-input" accept="image/x-png, image/gif, image/jpeg">
       <button id="start">start</button>
     </div>
-    <button id="reset">reset</button>
     <canvas id="canvas"></canvas>
     <div id="puzzle"></div>
+    <button id="reset">reset</button>
     <script type="text/javascript" src="sw.js"></script>
     <script type="text/javascript">
       if ('serviceWorker' in navigator) {
