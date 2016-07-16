@@ -7,6 +7,7 @@
   </head>
   <body>
     <div class="init-box">
+      <h2>Please consider uploading a square image</h2>
       <select id="difficulty">
         <option value="3" selected>Okay I am a newbie!</option>
         <option value="4">Hmm! I'm up for a challange</option>
@@ -15,9 +16,11 @@
         <option value="7">I admit! I'm insane</option>
         <option value="8">No Comments!</option>
       </select>
+      <input type="file" id="file-input" accept="image/x-png, image/gif, image/jpeg">
       <button id="start">start</button>
     </div>
     <button id="reset">reset</button>
+    <canvas id="canvas"></canvas>
     <div id="puzzle"></div>
     <script type="text/javascript" src="/jquery.slim.min.js"></script>
     <script type="text/javascript" src="/script.js"></script>

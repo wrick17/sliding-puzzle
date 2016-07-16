@@ -6,7 +6,38 @@
 
   let randomizeQueue, timeout;
 
+  const input = $('#file-input');
+  let ctx, img;
+
+  input.on('change', function(e) {
+
+    var file = e.target.files[0];
+    var fr = new FileReader();
+
+    fr.onload = function(e) {
+      img = new Image();
+      img.onload = function(e) {
+
+        canvas.width = img.width;      // set canvas size big enough for the image
+        canvas.height = img.height;
+        ctx = canvas.getContext("2d");
+        setTimeout(() => {
+
+          ctx.drawImage(img,0,0);         // draw the image
+        }, 0)
+      };
+      img.src = fr.result;
+    }
+
+    fr.readAsDataURL(file);
+  })
+
+
   function gameInit() {
+
+    // let the games begin
+
+    if (!$('#file-input')[0].files.length) return;
 
     $('.init-box').hide();
     $('#reset').show();
@@ -18,7 +49,7 @@
     const size = difficulty;
 
     // set some complexity of the randomization
-    const randomComplexity = size * (2 + size);
+    const randomComplexity = size * (5 + size);
     const randomizationTimeout = 200 + 10;
 
     // set puzzle dimensions
@@ -46,14 +77,40 @@
     const tileDimension = (puzzle.innerHeight())/size;  // the 2 at the end is just for laziness purposes to cut off the bad styling :p
 
     // create the tile elements
-    const tileElements = tiles.map(tileId => {
 
-      // create an html object
-      const tile = $($.parseHTML('<div class="tile" data-id="' + tileId + '" id="tile' + tileId + '">' + tileId + '</div>'));
+    const tileElements = tiles.map(tileId => {
 
       // get tile position
       const y = parseInt(tileId / size);
       const x = tileId % size;
+
+      const startX = parseInt(document.getElementById('canvas').width/size) * x;
+      const startY = parseInt(document.getElementById('canvas').height/size) * y;
+
+      const endX = parseInt(document.getElementById('canvas').width/size) * (x + 1);
+      const endY = parseInt(document.getElementById('canvas').height/size) * (y + 1);
+
+      var imgData = ctx.getImageData(startX, startY, endX, endY);
+
+      var canvasTemp = document.createElement('canvas'),
+      ctxTemp = canvasTemp.getContext('2d');
+
+      canvasTemp.width = endX - startX;
+      canvasTemp.height = endY - startY;
+
+      // create imageData object
+      var idata = ctxTemp.createImageData(imgData.width, imgData.height);
+
+      // set our buffer as source
+      idata.data.set(imgData.data);
+
+      // update canvas with new data
+      ctxTemp.putImageData(idata, 0, 0);
+      var dataUri = canvasTemp.toDataURL();
+
+
+      // create an html object
+      const tile = $($.parseHTML('<div class="tile" data-id="' + tileId + '" id="tile' + tileId + '"><img class="tile-img" src="' + dataUri + '"/></div>'));
 
       tile.data('x', x);
       tile.data('y', y);
@@ -68,6 +125,7 @@
       if (tileId === blankTileId) {
         // set blank tile as blank, apparantly
         tile.css({ background: 'white', 'z-index': 0 });
+        tile.find('.tile-img').css('visibility', 'hidden');
       }
 
       return tile;
@@ -82,7 +140,9 @@
       $.each(tiles, function(idx, el) {
         if ($(el).data('id') != $(el).attr('id').replace('tile', '')) faultArray.push(this);
       });
+
       if (faultArray.length === 0) setTimeout(() => {
+        $('#tile' + blankTileId).find('.tile-img').css('visibility', 'visible');
         alert('hurry you won!')
       }, randomizationTimeout);
     }
@@ -147,7 +207,7 @@
       if (busyFlag) return;
 
       // get the tile which has been clicked
-      const tileId = e.target.id;
+      const tileId = $(e.target).parent().attr('id');
       const tile = $('#'+tileId);
 
       // get tile's placement

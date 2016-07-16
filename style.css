@@ -11,6 +11,39 @@ body {
   padding-top: 20px;
 }
 
+h2 {
+  text-transform: uppercase;
+}
+
+button, ::-webkit-file-upload-button {
+  border: none;
+  background: white;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 10px 20px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  height: 43px;
+}
+
+select {
+  padding: 10px 20px;
+  -webkit-appearance: none;
+  border: none;
+  background: white;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 0;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  height: 43px;
+}
+
+input[type="file"] {
+  font-size: 16px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
 #puzzle {
   /*border: 1px solid teal;*/
   margin: auto;
@@ -23,13 +56,21 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: green;
   color: white;
   z-index: 1;
   transition: 100ms;
   transform: translate3d(0,0,0);
 }
 
+.tile-img {
+  height: 100%;
+  width: 100%;
+}
+
 #reset {
+  display: none;
+}
+
+#canvas {
   display: none;
 }
