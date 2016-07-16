@@ -6,7 +6,18 @@
     <link rel="stylesheet" href="/style.css">
   </head>
   <body>
-    <button class="button">randomize</button>
+    <div class="init-box">
+      <select id="difficulty">
+        <option value="3" selected>Okay I am a newbie!</option>
+        <option value="4">Hmm! I'm up for a challange</option>
+        <option value="5">This looks too easy! Apparantly</option>
+        <option value="6">Who am I kidding?</option>
+        <option value="7">I admit! I'm insane</option>
+        <option value="8">No Comments!</option>
+      </select>
+      <button id="start">start</button>
+    </div>
+    <button id="reset">reset</button>
     <div id="puzzle"></div>
     <script type="text/javascript" src="/jquery.slim.min.js"></script>
     <script type="text/javascript" src="/script.js"></script>

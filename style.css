@@ -6,12 +6,13 @@ body {
   margin: 0;
   box-sizing: border-box;
   font-family: sans-serif;
+  height: 100vh;
+  text-align: center;
+  padding-top: 20px;
 }
 
 #puzzle {
-  height: 600px;
-  width: 600px;
-  border: 1px solid teal;
+  /*border: 1px solid teal;*/
   margin: auto;
   margin-top: 20px;
   position: relative;
@@ -27,4 +28,8 @@ body {
   z-index: 1;
   transition: 100ms;
   transform: translate3d(0,0,0);
+}
+
+#reset {
+  display: none;
 }
