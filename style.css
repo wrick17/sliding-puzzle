@@ -77,3 +77,21 @@ input[type="file"] {
 #canvas {
   display: none;
 }
+
+footer {
+  font-size: 10px;
+  color: #777;
+  text-transform: uppercase;
+  position: absolute;
+  bottom: 10px;
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+  left: 0;
+}
+
+a {
+  color: inherit;
+  font-weight: bold;
+  text-decoration: none;
+}
